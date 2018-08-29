@@ -2,7 +2,7 @@
 from ciscoconfparse import CiscoConfParse
 
 #Define what to Parse
-parse = CiscoConfParse("/home/jbowers/PVLSWHINC01")
+parse = CiscoConfParse("/home/jbowers/Configs/SwithConfig")
 
 #Define all Interfaces without Authentication * commands
 all_intfs = parse.find_objects(r"^interf")
@@ -12,8 +12,7 @@ NoDot1x = parse.find_objects_wo_child(r'^interface', r'authentication')
 #Display Results
 for obj in NoDot1x:
     print obj.text
-    
-#Save Result to File
-No_Dot1x_Int = open('INT_WO_DOT1X', 'w')
-for obj in NoDot1x:
-    No_Dot1x_Int.write("%s\n" % item)
+
+#Remove Uplinks
+for item in list(NoDot1x):
+  somelist.remove("Interface Vlan1")
