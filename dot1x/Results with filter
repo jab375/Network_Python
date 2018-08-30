@@ -6,14 +6,22 @@ all_intfs = parse.find_objects(r"^interf")
 NoDot1x = list()
 NoDot1x = parse.find_objects_wo_child(r'^interface', r'authentication')
 
-#Remove results
-for item in NoDot1x: 
- if "interface FastEthernet1": 
-  NoDot1x.remove(item) 
+#Getting Rid of this..Remove results
+#for item in NoDot1x: 
+# if "interface FastEthernet1": 
+#  NoDot1x.remove(item)
 
-#Display Results
+
+No_uplinks = [n for n in NoDot1x if n == "interface FastEthernet1" ]
+
+
+#Display Before Results
 for obj in NoDot1x:
     print obj.text
+    
+#Display After Results
+for obj in No_uplinks:
+    print obj.text    
 
 
 
