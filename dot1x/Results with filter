@@ -1,5 +1,5 @@
 from ciscoconfparse import CiscoConfParse
-parse = CiscoConfParse("/home/jbowers/Configs/PVLSWHINC01")
+parse = CiscoConfParse("/home/jbowers/Configs/Switch_Config")
 
 #Define all Interfaces without Authentication * commands
 all_intfs = parse.find_objects(r"^interf")
