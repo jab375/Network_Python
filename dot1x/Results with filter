@@ -1,0 +1,33 @@
+from ciscoconfparse import CiscoConfParse
+parse = CiscoConfParse("/home/jbowers/Configs/PVLSWHINC01")
+
+#Define all Interfaces without Authentication * commands
+all_intfs = parse.find_objects(r"^interf")
+NoDot1x = list()
+NoDot1x = parse.find_objects_wo_child(r'^interface', r'authentication')
+
+#Remove results
+for item in NoDot1x: 
+ if "interface FastEthernet1": 
+  NoDot1x.remove(item) 
+
+#Display Results
+for obj in NoDot1x:
+    print obj.text
+
+
+
+
+Filtering Results. Interface Fastethernet 1 still exists
+[jbowers@localhost ~]$ python NoDot1xInt 
+interface FastEthernet1
+interface TenGigabitEthernet5/1
+interface TenGigabitEthernet5/3
+interface TenGigabitEthernet5/5
+interface TenGigabitEthernet5/7
+interface TenGigabitEthernet6/1
+interface TenGigabitEthernet6/3
+interface TenGigabitEthernet6/5
+interface TenGigabitEthernet6/7
+interface GigabitEthernet7/23
+interface GigabitEthernet9/2
