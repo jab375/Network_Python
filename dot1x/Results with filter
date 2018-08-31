@@ -6,64 +6,15 @@ all_intfs = parse.find_objects(r"^interf")
 NoDot1x = list()
 NoDot1x = parse.find_objects_wo_child(r'^interface', r'authentication')
 
-#Getting Rid of this..Remove results
-#for item in NoDot1x: 
-# if "interface FastEthernet1": 
-#  NoDot1x.remove(item)
-
-
-No_uplinks = [n for n in NoDot1x if n == "interface FastEthernet1" ]
-
+#Remove Non Gig Ports
+GigPorts = [x for x in NoDot1x if x.startswith("interface Gig")]
 
 #Display Before Results
-for obj in NoDot1x:
-    print obj.text
-    
-#Display After Results
-for obj in No_uplinks:
-    print obj.text    
+print("This is before filtering.")
+print(" ")
+print(NoDot1x)
 
-
-
-
-Filtering Results. Interface Fastethernet 1 still exists
-[jbowers@localhost ~]$ python NoDot1xInt 
-interface FastEthernet1
-interface TenGigabitEthernet5/1
-interface TenGigabitEthernet5/3
-interface TenGigabitEthernet5/5
-interface TenGigabitEthernet5/7
-interface TenGigabitEthernet6/1
-interface TenGigabitEthernet6/3
-interface TenGigabitEthernet6/5
-interface TenGigabitEthernet6/7
-interface GigabitEthernet7/23
-interface GigabitEthernet9/2
-
-
-
-This is a list that has not been filtered. The code above removes other things than interface FastEthernet1
-[jbowers@localhost ~]$ python NoDot1xInt 
-interface Port-channel1
-interface FastEthernet1
-interface GigabitEthernet1/1
-interface TenGigabitEthernet5/1
-interface TenGigabitEthernet5/2
-interface TenGigabitEthernet5/3
-interface TenGigabitEthernet5/4
-interface TenGigabitEthernet5/5
-interface TenGigabitEthernet5/6
-interface TenGigabitEthernet5/7
-interface TenGigabitEthernet5/8
-interface TenGigabitEthernet6/1
-interface TenGigabitEthernet6/2
-interface TenGigabitEthernet6/3
-interface TenGigabitEthernet6/4
-interface TenGigabitEthernet6/5
-interface TenGigabitEthernet6/6
-interface TenGigabitEthernet6/7
-interface TenGigabitEthernet6/8
-interface GigabitEthernet7/23
-interface GigabitEthernet8/17
-interface GigabitEthernet9/2
-interface Vlan1
+#Display Filtered Results
+print("This is after filtering.")
+print(" ")
+print(GigPorts)
