@@ -8,22 +8,7 @@ NoDot1x = list()
 NoDot1x = parse.find_objects_wo_child(r'^interface', r'authentication')
 
 #Remove Non Gig Ports
-#GigPorts = [x for x in NoDot1x if x.startswith("interface Gig")]
-GigPorts = [x for x in NoDot1x if x.text.startswith("interface Gig")]
+GigPorts = [x.text.split()[1] for x in NoDot1x if x.text.startswith("interface Gig")]
 
 #Display Filtered Results
 for item in GigPorts: print(item)
-
-
-
-
-# Problem with printing results
-#This is after filtering. 
-<IOSCfgLine # 830 'interface GigabitEthernet1/29'>
-<IOSCfgLine # 858 'interface GigabitEthernet1/31'>
-<IOSCfgLine # 4514 'interface GigabitEthernet7/12'>
-<IOSCfgLine # 4730 'interface GigabitEthernet7/23'>
-<IOSCfgLine # 5260 'interface GigabitEthernet8/1'>
-<IOSCfgLine # 5583 'interface GigabitEthernet8/17'>
-<IOSCfgLine # 6783 'interface GigabitEthernet9/27'>
-<IOSCfgLine # 7863 'interface GigabitEthernet10/31'>
