@@ -1,24 +1,25 @@
 #Int Modules
-from ciscoconfparse import CiscoConfParse
 import os
 
-#File Discovery
-srcdir = '/home/jbowers/Configs/'
-for subdir, dirs, files in os.walk(srcdir):
-    for files in files:
-    
-    #Define Parse
-    parse = CiscoConfParse(files)
-
-    #Define all Interfaces without Authentication * commands
-    all_intfs = parse.find_objects(r"^interf")
-    NoDot1x = list()
-    NoDot1x = parse.find_objects_wo_child(r'^interface', r'authentication')
-
-    #Remove Non Gig Ports
-    GigPorts = [x for x in NoDot1x if x.startswith("interface Gig")]
-    
-    #Display Filtered Results
-    print("This is after filtering.")
-    print(" ")
-    print(GigPorts)
+#Discover File
+for file in os.listdir("/home/jbowers/Configs"):
+    if file.startswith("P"):
+        configfiles = (os.path.join("/home/jbowers/Configs/", file))
+        print configfiles
+        
+        
+        
+        
+      
+      
+#List has all wanted files
+[jbowers@localhost ~]$ python NoDot1xIntv2 
+/home/jbowers/Configs/PVC01
+/home/jbowers/Configs/PVC02
+/home/jbowers/Configs/PVC03
+/home/jbowers/Configs/PVC04
+/home/jbowers/Configs/PVC05
+/home/jbowers/Configs/PVB01
+/home/jbowers/Configs/PVB02
+/home/jbowers/Configs/PVA02
+/home/jbowers/Configs/PVA01
