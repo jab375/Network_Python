@@ -1,15 +1,27 @@
 #Int Modules
 import os
+from ciscoconfparse import CiscoConfParse
 
 #Discover File
 for file in os.listdir("/home/jbowers/Configs"):
     if file.startswith("P"):
         configfiles = (os.path.join("/home/jbowers/Configs/", file))
         print configfiles
-        
-        
-        
-        
+
+#Define all Interfaces without Authentication * commands
+for item in configfiles:
+    parse = CiscoConfParse("item")
+    all_intfs = parse.find_objects(r"^interf")
+    NoDot1x = list()
+    NoDot1x = parse.find_objects_wo_child(r'^interface', r'authentication')
+
+    #Remove Non Gig Ports
+    GigPorts = [x.text.split()[1] for x in NoDot1x if x.text.startswith("interface Gig")]
+
+    #Display Filtered Results
+    for item in GigPorts: print(item)
+      
+      
       
       
 #List has all wanted files
@@ -23,3 +35,10 @@ for file in os.listdir("/home/jbowers/Configs"):
 /home/jbowers/Configs/PVB02
 /home/jbowers/Configs/PVA02
 /home/jbowers/Configs/PVA01
+[FATAL] CiscoConfParse could not open 'item'
+Traceback (most recent call last):
+  File "NoDot1xIntv2", line 13, in <module>
+    parse = CiscoConfParse("item")
+  File "/usr/lib/python2.7/site-packages/ciscoconfparse-1.3.20-py2.7.egg/ciscoconfparse/ciscoconfparse.py", line 281, in __init__
+    raise RuntimeError
+RuntimeError
