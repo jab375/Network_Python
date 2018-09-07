@@ -10,7 +10,7 @@ for file in os.listdir("/home/jbowers/Configs"):
 
 #Define all Interfaces without Authentication * commands
 for item in configfiles:
-    parse = CiscoConfParse("item")
+    parse = CiscoConfParse(item)
     all_intfs = parse.find_objects(r"^interf")
     NoDot1x = list()
     NoDot1x = parse.find_objects_wo_child(r'^interface', r'authentication')
