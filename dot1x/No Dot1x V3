@@ -2,6 +2,7 @@
 import os
 import re
 from ciscoconfparse import CiscoConfParse
+from netmiko import ConnectHandler
 
 #Loop through Directory to find switchports with 802.1x
 root = "/home/jbowers/Nodot1x/Configs"
@@ -19,6 +20,14 @@ for file in os.listdir(root):
 
     #Further Filter
     final_list= [w for w in GigPorts if not re.match(r'GigabitEthernet./1/.', w)]
+
+    #Netmiko Gets Port Descriptions
+    port = final_list
+    cmd = "show run int "port" | i desc"  
+    print (cmd)
+    net_connect = ConnectHandler(device_type='cisco_ios', host=file, username='zjabn3tw', pas$
+    desc = net_connect.send_command(cmd)
+    print desc
 
     #Display Filtered Results
     print(config_path)
