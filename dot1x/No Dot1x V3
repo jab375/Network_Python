@@ -6,6 +6,20 @@ from netmiko import ConnectHandler
 
 #Loop through Directory to find switchports with 802.1x
 root = "/home/jbowers/Nodot1x/Configs"
+
+for file in os.listdir(root):
+    infilename = os.path.join(root,file)
+    if not os.path.isfile(infilename): continue
+    oldbase = os.path.splitext(file)
+    infile = (infilename, 'r')
+    newname = infilename.replace('-Running.Config', '')
+    output = os.rename(infilename, newname)
+    outfile = (output,'w')
+
+print("Finshed Removing -Running.config from file name")
+header = "Switch"+ "        " + "Port W/O Dot1x" +"          "+ "Port Description"
+print(header)
+
 for file in os.listdir(root):
     if not file.startswith("P"):
         continue
@@ -18,17 +32,21 @@ for file in os.listdir(root):
     #Remove Non Gig Ports because all user ports are 1 gig
     GigPorts = [x.text.split()[1] for x in NoDot1x if x.text.startswith("interface Gig")]
 
-    #Remove Cisco 3750 Exansion module 
+    #Remove Cisco 3750 Exansion module
     final_list=[w for w in GigPorts if not re.match(r'GigabitEthernet./1/.', w)]
-
     #Netmiko Gets Port Descriptions
     port= ''.join(final_list)
     cmd = 'show run int {0} | i desc' .format(port)
-    net_connect = ConnectHandler(device_type='cisco_ios', host=file, username='user', password='pass')
+    net_connect = ConnectHandler(device_type='cisco_ios', host=file, username='', password='') 
     desc = net_connect.send_command(cmd)
-
-    #Display Results         
-    result = file +'   ' + ''.join(port)+ "   " + desc
-    header = "Switch"+ "        " + "Port W/O Dot1x" +"          "+ "Port Description"
-    print(header)
-    print(result)
+    net_connect.disconnect()  
+    
+   # Display Results
+    if desc.find('GigabitEthernet'):
+       result = file +'   ' + ''.join(port)+ "   " + desc
+       header = "Switch"+ "        " + "Port W/O Dot1x" +"          "+ "Port Description"
+       print(result) 
+    
+    else:
+       result = file + "All user ports have 802.1x enabled"
+       print (result)
