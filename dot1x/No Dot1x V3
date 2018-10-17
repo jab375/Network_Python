@@ -24,7 +24,7 @@ for file in os.listdir(root):
     #Netmiko Gets Port Descriptions
     port= ''.join(final_list)
     cmd = 'show run int {0} | i desc' .format(port)
-    net_connect = ConnectHandler(device_type='cisco_ios', host=file, username='zjabn3tw', password='2[]13ccnarouteCICD')
+    net_connect = ConnectHandler(device_type='cisco_ios', host=file, username='user', password='pass')
     desc = net_connect.send_command(cmd)
 
     #Display Results         
