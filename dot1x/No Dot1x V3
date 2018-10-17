@@ -15,20 +15,20 @@ for file in os.listdir(root):
     NoDot1x = list()
     NoDot1x = parse.find_objects_wo_child(r'^interface', r'authentication')
 
-    #Remove Non Gig Ports
+    #Remove Non Gig Ports because all user ports are 1 gig
     GigPorts = [x.text.split()[1] for x in NoDot1x if x.text.startswith("interface Gig")]
 
-    #Further Filter
-    final_list= [w for w in GigPorts if not re.match(r'GigabitEthernet./1/.', w)]
+    #Remove Cisco 3750 Exansion module 
+    final_list=[w for w in GigPorts if not re.match(r'GigabitEthernet./1/.', w)]
 
     #Netmiko Gets Port Descriptions
-    port = final_list
-    cmd = "show run int "port" | i desc"  
-    print (cmd)
-    net_connect = ConnectHandler(device_type='cisco_ios', host=file, username='zjabn3tw', pas$
+    port= ''.join(final_list)
+    cmd = 'show run int {0} | i desc' .format(port)
+    net_connect = ConnectHandler(device_type='cisco_ios', host=file, username='zjabn3tw', password='2[]13ccnarouteCICD')
     desc = net_connect.send_command(cmd)
-    print desc
 
-    #Display Filtered Results
-    print(config_path)
-    for item in final_list: print(item)
+    #Display Results         
+    result = file +'   ' + ''.join(port)+ "   " + desc
+    header = "Switch"+ "        " + "Port W/O Dot1x" +"          "+ "Port Description"
+    print(header)
+    print(result)
