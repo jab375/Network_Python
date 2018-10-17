@@ -4,9 +4,14 @@ import re
 from ciscoconfparse import CiscoConfParse
 from netmiko import ConnectHandler
 
-#Loop through Directory to find switchports with 802.1x
+#set Vars
+header = "Switch"+ "        " + "Port W/O Dot1x" +"          "+ "Port Description"
+
+#Set Switch Config Location
 root = "/home/jbowers/Nodot1x/Configs"
 
+#Rename Files in the root location
+print("-------------------Starting to remove -Running.config from file name-----------------")
 for file in os.listdir(root):
     infilename = os.path.join(root,file)
     if not os.path.isfile(infilename): continue
@@ -15,9 +20,11 @@ for file in os.listdir(root):
     newname = infilename.replace('-Running.Config', '')
     output = os.rename(infilename, newname)
     outfile = (output,'w')
-
-print("Finshed Removing -Running.config from file name")
-header = "Switch"+ "        " + "Port W/O Dot1x" +"          "+ "Port Description"
+print(" ")
+print("-------------------Finshed removing -Running.config from file name-------------------")
+print(" ")
+print("-------------------Starting to find ports with Dot1x disabled------------------------")
+print(" ")
 print(header)
 
 for file in os.listdir(root):
@@ -34,19 +41,18 @@ for file in os.listdir(root):
 
     #Remove Cisco 3750 Exansion module
     final_list=[w for w in GigPorts if not re.match(r'GigabitEthernet./1/.', w)]
+
     #Netmiko Gets Port Descriptions
-    port= ''.join(final_list)
-    cmd = 'show run int {0} | i desc' .format(port)
-    net_connect = ConnectHandler(device_type='cisco_ios', host=file, username='', password='') 
-    desc = net_connect.send_command(cmd)
-    net_connect.disconnect()  
-    
-   # Display Results
-    if desc.find('GigabitEthernet'):
-       result = file +'   ' + ''.join(port)+ "   " + desc
-       header = "Switch"+ "        " + "Port W/O Dot1x" +"          "+ "Port Description"
-       print(result) 
-    
-    else:
-       result = file + "All user ports have 802.1x enabled"
-       print (result)
+    for t in final_list:
+       port= ''.join(t)
+       if port.startswith('GigabitEthernet'):
+          cmd = 'show run int {0} | i desc' .format(port)
+          net_connect = ConnectHandler(device_type='cisco_ios', host=file, username='changeme', password='changeme') 
+          desc = net_connect.send_command(cmd)
+          result = file +'   ' + ''.join(port)+ "   " + desc
+          print(result)
+       else:
+          result = file + "All user ports have 802.1x enabled"
+          print (result)
+
+print("-------------------The script has finished------------------------")
