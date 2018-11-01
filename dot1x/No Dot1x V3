@@ -41,13 +41,15 @@ for file in os.listdir(root):
 
     #Remove Cisco 3750 Exansion module
     final_list=[w for w in GigPorts if not re.match(r'GigabitEthernet./1/.', w)]
-
+   # print(file)
+   # print(final_list)
+    
     #Netmiko Gets Port Descriptions
     for t in final_list:
        port= ''.join(t)
        if port.startswith('GigabitEthernet'):
           cmd = 'show run int {0} | i desc' .format(port)
-          net_connect = ConnectHandler(device_type='cisco_ios', host=file, username='changeme', password='changeme') 
+          net_connect = ConnectHandler(device_type='cisco_ios', host=file, username='gdfgdfg', password='dfgdfgdg') 
           desc = net_connect.send_command(cmd)
           result = file +'   ' + ''.join(port)+ "   " + desc
           print(result)
@@ -56,29 +58,3 @@ for file in os.listdir(root):
           print (result)
 
 print("-------------------The script has finished------------------------")
-
-
-
-
-
-
--bash-4.2$ python nodot1x.py 
--------------------Starting to remove -Running.config from file name-----------------
- 
--------------------Finshed removing -Running.config from file name-------------------
- 
--------------------Starting to find ports with Dot1x disabled------------------------
- 
-Switch        Port W/O Dot1x          Port Description
-PRISWHIN02
-['GigabitEthernet1/0/1']
-Traceback (most recent call last):
-  File "nodot1x.py", line 53, in <module>
-    net_connect = ConnectHandler(device_type='cisco_ios', host=file, username='changeme', password='changeme') 
-  File "/usr/lib/python2.7/site-packages/netmiko/ssh_dispatcher.py", line 218, in ConnectHandler
-    return ConnectionClass(*args, **kwargs)
-  File "/usr/lib/python2.7/site-packages/netmiko/base_connection.py", line 270, in __init__
-    self.establish_connection()
-  File "/usr/lib/python2.7/site-packages/netmiko/base_connection.py", line 782, in establish_connection
-    self.remote_conn_pre.connect(**ssh_connect_params)
-TypeError: connect() got an unexpected keyword argument 'passphrase'
