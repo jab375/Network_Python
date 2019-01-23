@@ -1,0 +1,45 @@
+#Int Modules
+import os
+import re
+from ciscoconfparse import CiscoConfParse
+from netmiko import ConnectHandler
+from pathlib import Path
+
+#Rename Files in the root location
+print("-------------------Starting to remove -Running.config from file name-----------------")
+p = Path('/home/jbow/script/Configs')
+running = p.glob('*-Running.Config')
+print(running)
+for r in running: 
+    print("Enterloop")
+    print(r) 
+    newname = str(r).replace('-Running.Config','.Config') 
+    rc.rename(newname)
+print(" ")
+print("-------------------Finshed removing -Running.config from file name-------------------")
+print(" ")
+print("-------------------End of script------------------------")
+
+
+
+
+
+Results. For loop does not seem to be working
+
+-bash-4.2$ python3.6 new.py 
+-------------------Starting to remove -Running.config from file name-----------------
+<generator object Path.glob at 0x7fabb0ddb048>
+ 
+-------------------Finshed removing -Running.config from file name-------------------
+ 
+-------------------End of script------------------------
+
+
+File is not renamed
+
+-bash-4.2$ pwd
+/home/jbow/script/Configs/PSWHIN02
+-bash-4.2$ ls
+PSWHIN02-Running.Config
+
+
