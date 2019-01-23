@@ -64,56 +64,6 @@ print("-------------------The script has finished------------------------")
 
 
 
-My attempt to travel down directories.
-
-#Int Modules
-import os
-import re
-from ciscoconfparse import CiscoConfParse
-from netmiko import ConnectHandler
-
-#set Vars
-header = "Switch"+ "        " + "Port W/O Dot1x" +"          "+ "Port Description"
-
-#Rename Files in the root location
-print("-------------------Starting to remove -Running.config from file name-----------------")
-configs = ['/home/jbowers/Nodot1x/Configs/']
-for file in configs:
-    for root, dirs, files in os.walk(file, topdown=True):
-          infilename = os.path.join(root + files)
-          if not os.path.isfile(infilename): continue
-          oldbase = os.path.splitext(file)
-          infile = (infilename, 'r')
-          newname = infilename.replace('-Running.Config', '')
-          output = os.rename(infilename, newname)
-          outfile = (output,'w')
-print(" ")
-print("-------------------Finshed removing -Running.config from file name-------------------")
-print(" ")
-print("-------------------Starting to find ports with Dot1x disabled------------------------")
-print(" ")
-
-
-fails with
-
--bash-4.2$ python3.6 test2.py 
--------------------Starting to remove -Running.config from file name-----------------
-Traceback (most recent call last):
-  File "test2.py", line 16, in <module>
-    infilename = os.path.join(root + files)
-TypeError: must be str, not list
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
