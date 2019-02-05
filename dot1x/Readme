@@ -1,0 +1,4 @@
+User must manually create two directories that are called in the script.
+
+OLD_DIR = '//home/jbowers/Nodot1x/Configs'
+NEW_DIR = '/home/jbowers/Nodot1x/modifiedconfigs'
