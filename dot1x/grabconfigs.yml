@@ -1,0 +1,32 @@
+---
+- hosts: access_switches
+  connection: local
+
+  vars:
+    backup_root: /home/zjabn3tw/Nodot1x/Configs/
+
+  tasks:
+
+  - name: Define provider
+    set_fact:
+      provider:
+        host: "{{ inventory_hostname }}"
+        username: "changeme"
+        password: "changeme
+
+  - name: run show running-config on remote devices
+    register: config
+    ios_command:
+      provider: "{{ provider }}"
+      commands:
+        - show running-config
+
+  - file:
+      path: "{{ backup_root }}"
+      state: directory
+
+  - file:
+      path: "{{ backup_root }}/{{ inventory_hostname }}"
+      state: directory
+
+  - copy: content="{{ config.stdout[0] }}" dest="{{ backup_root }}/{{ inventory_hostname }}/{{ inventory_hostname }}-Running.Config"
