@@ -2,3 +2,7 @@ User must manually create two directories that are called in the script.
 
 OLD_DIR = '//home/jbowers/Nodot1x/Configs'
 NEW_DIR = '/home/jbowers/Nodot1x/modifiedconfigs'
+
+And Crontabs need to be added
+10 1 1 * * ansible-playbook /home/zjabn3tw/Nodot1x/grabconfigs.yml
+10 2 1 * * ansible-playbook /home/zjabn3tw/Nodot1x/nodot1x.yml
