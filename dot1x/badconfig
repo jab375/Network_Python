@@ -9,7 +9,7 @@ from ciscoconfparse import CiscoConfParse
 from netmiko import ConnectHandler
 #
 #Setup Email header since the script logs to a file because of ansible.
-print("From: SGP-NETDB <email> ")
+print("From: S <email> ")
 print("To: email") 
 print("Subject: Ports Without 802.1x") 
 #
