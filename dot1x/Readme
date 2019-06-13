@@ -1,3 +1,7 @@
+This script will find cisco switchports that are missing authentication* commands. These commands are link to cisco implementation of 802.1x.
+
+Users have to create /opt/nodot1x/Configs and modifiedconfigs directories as my scripts do not do that.
+
 #############################################################################
 # Nodot1x Crontab Routines
 #############################################################################
