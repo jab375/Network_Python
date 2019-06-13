@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  connection: local
+
+  tasks:
+  - name: Run No 802.1x Find script
+    shell: python3.6 /opt/nodot1x/nodot1x.py > portswithoutdot1x.txt
+
+  - name: Clean up /opt/nodot1x/Configs 
+    shell: rm -fr /opt/nodot1x/Configs/*
+   
+  - name: Clean up /opt/nodot1x/modifiedconfigs 
+    shell: rm -fr /opt/nodot1x/modifiedconfigs/*
+
+  - name: Send Email
+    shell: echo -e "Subject:Ports Without 802.1x" && cat /opt/nodot1x/portswithoutdot1x.txt | sendmail email@email.local
