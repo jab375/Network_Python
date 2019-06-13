@@ -9,8 +9,8 @@ from ciscoconfparse import CiscoConfParse
 from netmiko import ConnectHandler
 #
 #Setup Email header since the script logs to a file because of ansible.
-print("From: SGP-NETDB <NetDB@SafeguardProperties.com> ")
-print("To: NetTeam@safeguardproperties.com") 
+print("From: send <email> ")
+print("To: email") 
 print("Subject: Ports Without 802.1x") 
 #
 # Rename OLD_DIR Files and move them to the NEW_DIR location
