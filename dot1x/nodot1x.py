@@ -47,5 +47,5 @@ for host in os.listdir(NEW_DIR):
          port = "interface" + " " + ports
          intconfig = parse.find_children(port, exactmatch=True)
          desc = [x for x in intconfig if re.search("description", x)]
-         result = host+'   ' + ''.join(ports)+'   '+ ''.join(desc)   
-         print(result)
+         result = host+'   ' + ''.join(ports)+'   '+ ''.join(desc)
+         print(result.replace('description', ''))   
