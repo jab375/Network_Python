@@ -7,9 +7,9 @@ Users have to create /opt/nodot1x/Configs and modifiedconfigs directories as my 
 #############################################################################
 #
 # SSH to get backups
-10 1 14 * * ansible-playbook /opt/nodot1x/grabconfigs.yml
-# Examine Configs for missing 802.1x.
-28 1 14 * * ansible-playbook /opt/nodot1x/nodot1x.yml
+15 4 3 * * ansible-playbook /opt/nodot1x/grabconfigs.yml
+# Examine Configs for missing 802.1x
+29 4 3 * * ansible-playbook /opt/nodot1x/nodot1x.yml
 #
 ###############
 # END Nodot1x #
