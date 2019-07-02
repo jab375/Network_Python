@@ -13,4 +13,4 @@
     shell: rm -fr /opt/nodot1x/modifiedconfigs/*
 
   - name: Send Email
-    shell: echo -e "Subject:Ports Without 802.1x" && cat /opt/nodot1x/portswithoutdot1x.txt | sendmail email@email.local
+    shell: echo -e "Subject:Ports Without 802.1x" && cat /opt/nodot1x/portswithoutdot1x.txt | /usr/sbin/sendmail email@email.local
