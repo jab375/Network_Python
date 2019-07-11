@@ -1,0 +1,23 @@
+#
+#Int Modules
+#
+import os
+import re
+import shutil
+import pathlib
+
+#Start Examining configs for missing logging commands
+dir = "/opt/switch_compliance/configs"
+for host in os.listdir(dir):
+    if host.startswith("p"):
+      config_path = os.path.join(dir, host)
+
+#Check For Syslog Servers
+      f = open(config_path)
+      lines = f.read()
+      server=[w for w in lines if re.findall('logging', w)]    
+      for y in server:
+        print(server)
+        
+        
+        print returns no vlaues and should have logging host 192.168.1.1 and 162.148.1.2
