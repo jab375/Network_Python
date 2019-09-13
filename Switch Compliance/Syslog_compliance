@@ -32,7 +32,7 @@ for host in os.listdir(dir):
 
 ##Check for NTP Configuration
       for x in re.findall('logging''.*', line):
-          if x.find(log1) or x.find(log2) or x.find(log3) or x.find(log4) or x.find(log5) or x.find(log):        
+          if x.find(log1) or x.find(log2) or x.find(log3) or x.find(log4) or x.find(log5) or x.find(log6):        
              p= "No Action Needed"
           else:
              print(host, "is missing: ", x)
