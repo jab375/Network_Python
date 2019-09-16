@@ -63,3 +63,11 @@ for host in os.listdir(dir2):
           p=0
     else:
        p=0
+       
+       
+       
+Output
+switch1 missing ntp server xxxxxxx
+end
+switch1 missing ntp server xxxxxxx prefer
+end
